@@ -1,7 +1,18 @@
 import styled from 'styled-components/native';
 
-export const DefaultInput = styled.TextInput`
+export const InputArea = styled.View`
   width: 100%;
-  height: 3rem;
-  background: #63C2D1;
+  height: 60px;
+  background-color: #83D6E3;
+  flex-direction:row;
+  border-radius: 30px;
+  padding-left: 15px;
 `;
+
+export const DefaultInput = styled.TextInput`
+  flex: 1;
+  font-size: 16px;
+  color: #268596;
+  margin-left: 10px;
+`;
+

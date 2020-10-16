@@ -1,8 +1,13 @@
 import React from 'react';
-import {DefaultInput} from './styled';
+import {DefaultInput, InputArea} from './styled';
 
-const Input = ({value, setValue}) => {
-  return <DefaultInput value={value} onChangeText={(e) => setValue(e)} />;
+const Input = ({IconSvg, placeholder}) => {
+  return (
+    <InputArea>
+      <IconSvg width="24" height="24" fill="#268596" />
+      <DefaultInput placeholder={placeholder} placeholderTextColor="#268596" />
+    </InputArea>
+  );
 };
 
 export default Input;
