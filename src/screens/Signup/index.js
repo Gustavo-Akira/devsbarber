@@ -15,7 +15,12 @@ import LockIcon from '../../assets/lock.svg';
 import PersonIcon from '../../assets/person.svg';
 import Input from '../../components/Input';
 
+import api from '../../api';
+import AsyncStorage from '@react-native-community/async-storage';
+import {UserContext} from '../../contexts/UserContext';
+
 export default () => {
+  const {dispatch: userDispatch} = useContext(UserContext);
   const navigation = useNavigation();
   const [nameField, setNameField] = useState('');
   const [emailField, setEmailField] = useState('');
@@ -25,7 +30,26 @@ export default () => {
       routes: [{name: 'SignIn'}],
     });
   };
-  const handleSignAttemptClick = () => {};
+  const handleSignAttemptClick = async () => {
+    if (nameField !== '' && emailField !== '' && nameField !== '') {
+      let res = await api.signUp(nameField, emailField, passwordField);
+      if (res.token) {
+        await AsyncStorage.setItem('key', res.token);
+
+        userDispatch({
+          type: 'setAvatar',
+          payload:{
+            avatar: res.data.avatar,
+          }
+        });
+        navigation.reset({
+          routes:[{name:'MainTab'}]
+        });
+      } else {
+        alert('Erro: ' + res.error);
+      }
+    }
+  };
   return (
     <Container>
       <BarberLogo width="100%" height="160" />
